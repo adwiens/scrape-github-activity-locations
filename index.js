@@ -2,6 +2,11 @@
 // location of each user seen in that hour. It does this in an infinite loop and saves the JSON
 // to a file every ~15s (every 10 sequential HTTP requests).
 //
+// The output file is "out.json".
+//
+// The script can be restarted, e.g. after crashing, and it will pick up where it left off; it
+// starts with a different random day, but it still picks up the data it saved before.
+//
 const _ = require('lodash');
 const bb = require('bluebird');
 const gs = bb.promisify(require('github-scraper'));
