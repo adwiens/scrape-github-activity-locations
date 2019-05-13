@@ -1,6 +1,10 @@
 // This script geocodes locations in out.json to latitude and longitude.
 // Does not pick up prev data; starts fresh and overwrites output file.
 //
+
+// rate-limited! would this work??? https://github.com/openaddresses/pelias-ubuntu
+
+
 const nodeGeo = require('node-open-geocoder')();
 const locs = require('./out.json');
 const _ = require('lodash');
