@@ -12,6 +12,11 @@ ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+array.some@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/array.some/-/array.some-1.0.0.tgz#2afde060ac7c921829ae11237247023f57485d94"
+  integrity sha1-Kv3gYKx8khgprhEjckcCP1dIXZQ=
+
 asn1@~0.2.3:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
@@ -45,6 +50,11 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
+
+between-range@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/between-range/-/between-range-1.0.0.tgz#aab7c2f46ef87a3b4ba9a7611724d9b813e7e149"
+  integrity sha1-qrfC9G74ejtLqadhFyTZuBPn4Uk=
 
 bluebird@3.5.4:
   version "3.5.4"
@@ -210,6 +220,14 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
+get-property-value@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/get-property-value/-/get-property-value-2.0.0.tgz#0dceaecf0c8fc5ce01452737d64281d432bbd956"
+  integrity sha1-Dc6uzwyPxc4BRSc31kKB1DK72VY=
+  dependencies:
+    array.some "^1.0.0"
+    is.object "^1.0.0"
+
 getpass@^0.1.1:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"
@@ -268,6 +286,18 @@ is-typedarray@~1.0.0:
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
 
+is-valid-coordinates@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-valid-coordinates/-/is-valid-coordinates-1.0.0.tgz#ac26e968be78f73903e26fbe990808e8a5015310"
+  integrity sha1-rCbpaL549zkD4m++mQgI6KUBUxA=
+  dependencies:
+    between-range "^1.0.0"
+
+is.object@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is.object/-/is.object-1.0.0.tgz#e4f4117e9f083b35c8df5cf817ea3efb0452fdfa"
+  integrity sha1-5PQRfp8IOzXI31z4F+o++wRS/fo=
+
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -277,6 +307,11 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
+
+json-parse-safe@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/json-parse-safe/-/json-parse-safe-1.0.5.tgz#fc18258806ed2e286151ca815eac4c633d219ed6"
+  integrity sha512-bA4Wieq0+zN+onjNQh/p0NrCg6w8GUGDbvQ6MBVuBI+XGCg/CQfg5hVFHp7080+zrSJbTxNvQxZ61ENtmb1pYg==
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
@@ -395,6 +430,17 @@ moment@2.24.0:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
+node-open-geocoder@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/node-open-geocoder/-/node-open-geocoder-3.0.0.tgz#628055823b2122330863552358c1a37bc9a2f052"
+  integrity sha512-S8CjrZJ9Q1PKAAZrx+4pmSrjA0icriSOqf7v3mW905x53fwYq3+LnJhISAq2Wk+OhUqM9ZbrIVK/yajJ//NZgg==
+  dependencies:
+    get-property-value "^2.0.0"
+    is-valid-coordinates "^1.0.0"
+    is.object "^1.0.0"
+    json-parse-safe "^1.0.5"
+    qs "^6.7.0"
+
 nth-check@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
@@ -426,6 +472,11 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+qs@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
+  integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
 qs@~6.5.2:
   version "6.5.2"
