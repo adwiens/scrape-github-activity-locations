@@ -14,8 +14,15 @@ const gunzip = bb.promisify(require('zlib').gunzip);
 
 const outFileName = 'user-locations.json';
 const nChunks = 16; // num concurrent http requests
+const timeoutMs = 10*1000; // default timeout period in ms for promises
+const usersTimeoutMs = 2*60*1000; // timeout for getting users json
+const scriptTimeoutMs = 30*60*1000; // timeout for the whole script
+const locationScrapeTimeoutMs = 30*1000; // timeout for scraping location
 
 const randomDate = (start, end) => new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+
+/** Reject a promise if it does not resolve within lenMs milliseconds. */
+const timeout = (promise, lenMs = timeoutMs) => Promise.race([promise, new Promise((_resolve, reject) => setTimeout(() => reject(), lenMs))]);
 
 /** Get string array of some randomly sampled, unique usernames from a random hour. */
 const getUsers = async () => {
@@ -29,9 +36,9 @@ const getUsers = async () => {
   return _.sampleSize(uniqueUsernames, _.round(0.05 * uniqueUsernames.length));
 };
 
-(async () => {
+timeout((async () => {
   console.log('Downloading users json...');
-  const users = await getUsers();
+  const users = await timeout(getUsers(), usersTimeoutMs);
   console.log(`Scraping ${users.length} users...`);
   console.log('Getting details for each user...');
   await Promise.all(_.chunk(users, Math.round(users.length / nChunks)).map((chunk, _parIdx) => (async () => {
@@ -39,10 +46,10 @@ const getUsers = async () => {
       const name = chunk[chunkIdx];
       try {
         // console.log(`Trying to get details for user ${name}...`);
-        const details = await gs(name);
+        const details = await timeout(gs(name), locationScrapeTimeoutMs);
         const location = details.location.trim().split('\n')[0];
         if (location.length > 0) {
-          await writeFile(outFileName, JSON.stringify([name, location]) + '\n', { flag: 'a' });
+          await timeout(writeFile(outFileName, JSON.stringify([name, location]) + '\n', { flag: 'a' }));
           // console.log(`Saved location ${location} for user ${name}`);
         }
       } catch (e) {
@@ -55,4 +62,4 @@ const getUsers = async () => {
     }
   })()));
   process.exit(0);
-})();
+})(), scriptTimeoutMs);
