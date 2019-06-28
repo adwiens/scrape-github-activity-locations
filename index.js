@@ -1,6 +1,5 @@
 // This script gets GHArchive JSON for a random hour from June 2018 to June 2019, then gets the
-// location of each user seen in that hour. It does this in an infinite loop and appends the
-// JSON to a file each time it gets a new user location.
+// location of some random users seen in that hour.
 //
 // The script can be restarted, e.g. after crashing, and it will continue appending to the file.
 //
@@ -31,38 +30,29 @@ const getUsers = async () => {
 };
 
 (async () => {
-  while(true) {
-    console.log('Downloading users json...');
-    try {
-      const users = await getUsers();
-      console.log(`Scraping ${users.length} users...`);
-      console.log('Getting details for each user...');
-      await Promise.all(_.chunk(users, Math.round(users.length / nChunks)).map((chunk, _parIdx) => (async () => {
-        for (let chunkIdx = 0; chunkIdx < chunk.length; chunkIdx++) {
-          const name = chunk[chunkIdx];
-          try {
-            // console.log(`Trying to get details for user ${name}...`);
-            const details = await gs(name);
-            const location = details.location.trim().split('\n')[0];
-            if (location.length > 0) {
-              await writeFile(outFileName, JSON.stringify([name, location]) + '\n', { flag: 'a' });
-              // console.log(`Saved location ${location} for user ${name}`);
-            }
-          } catch (e) {
-            console.warn('#################');
-            console.warn(`Could not scrape location for user ${name}; skipping.`);
-            console.warn(`Error details:`);
-            console.error(e);
-            console.warn('#################');
-          }
+  console.log('Downloading users json...');
+  const users = await getUsers();
+  console.log(`Scraping ${users.length} users...`);
+  console.log('Getting details for each user...');
+  await Promise.all(_.chunk(users, Math.round(users.length / nChunks)).map((chunk, _parIdx) => (async () => {
+    for (let chunkIdx = 0; chunkIdx < chunk.length; chunkIdx++) {
+      const name = chunk[chunkIdx];
+      try {
+        // console.log(`Trying to get details for user ${name}...`);
+        const details = await gs(name);
+        const location = details.location.trim().split('\n')[0];
+        if (location.length > 0) {
+          await writeFile(outFileName, JSON.stringify([name, location]) + '\n', { flag: 'a' });
+          // console.log(`Saved location ${location} for user ${name}`);
         }
-      })()));
-    } catch (e) {
-      console.warn('#################');
-      console.warn(`Could not get users for a random day. skipping...`);
-      console.warn(`Error details:`);
-      console.error(e);
-      console.warn('#################');
+      } catch (e) {
+        console.warn('#################');
+        console.warn(`Could not scrape location for user ${name}; skipping.`);
+        console.warn(`Error details:`);
+        console.error(e);
+        console.warn('#################');
+      }
     }
-  }
+  })()));
+  process.exit(0);
 })();
