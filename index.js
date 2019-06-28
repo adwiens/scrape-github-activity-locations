@@ -14,7 +14,7 @@ const leftPad = require('left-pad');
 const gunzip = bb.promisify(require('zlib').gunzip);
 
 const outFileName = 'user-locations.json';
-const nChunks = 64; // num concurrent http requests
+const nChunks = 16; // num concurrent http requests
 
 const randomDate = (start, end) => new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 
