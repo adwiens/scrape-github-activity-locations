@@ -19,6 +19,8 @@ const usersTimeoutMs = 2*60*1000; // timeout for getting users json
 const scriptTimeoutMs = 30*60*1000; // timeout for the whole script
 const locationScrapeTimeoutMs = 30*1000; // timeout for scraping location
 
+setTimeout(() => process.exit(1), scriptTimeoutMs); // start a watchdog timer
+
 const randomDate = (start, end) => new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 
 /** Reject a promise if it does not resolve within lenMs milliseconds. */
